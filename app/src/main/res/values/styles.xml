@@ -1,0 +1,59 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+    </style>
+
+    <style name="BaseEditText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/whiteAlpha</item>
+        <item name="backgroundTint">#c5c5c5</item>
+        <item name="fontPath">fonts/Montserrat-Light.ttf</item>
+        <item name="android:drawablePadding">20dp</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="LightFont">
+        <item name="fontPath">fonts/Montserrat-Light.ttf</item>
+    </style>
+
+    <style name="RegularFont" parent="android:Widget.TextView">
+        <item name="fontPath">fonts/Montserrat-Regular.ttf</item>
+    </style>
+
+    <style name="MediumFont" parent="android:Widget.TextView">
+        <item name="fontPath">fonts/Montserrat-Medium.ttf</item>
+    </style>
+
+    <style name="BoldFont" parent="android:Widget.TextView">
+        <item name="fontPath">fonts/Montserrat-Bold.ttf</item>
+    </style>
+
+    <style name="SemiBoldFont" parent="android:Widget.TextView">
+        <item name="fontPath">fonts/Montserrat-SemiBold.ttf</item>
+    </style>
+
+    <style name="CustomTheme" parent="MaterialDrawerTheme">
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/material_drawer_primary</item>
+        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="colorAccent">@color/material_drawer_accent</item>
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/material_drawer_background</item>
+        <item name="material_drawer_primary_text">@android:color/white</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
+        <item name="material_drawer_secondary_text">@android:color/white</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider</item>
+        <item name="material_drawer_selected">@color/drawerSelectedBackground</item>
+        <item name="material_drawer_selected_text">@android:color/white</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e47634</color>
+    <color name="colorPrimaryDark">#cc6629</color>
+    <color name="colorAccent">#cc6629</color>
+    <color name="whiteAlpha">#61ffffff</color>
+    <color name="blueFacebook">#3b5998</color>
+    <color name="darkBlueFacebook">#304a80</color>
+    <color name="drawerSelectedBackground">#49000000</color>
+</resources>

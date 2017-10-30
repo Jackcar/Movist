@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Movist</string>
+
+    <string name="tmdb_background_url">https://image.tmdb.org/t/p/w1400_and_h450_bestv2</string>
+
+    <!--    ACTIVITIES    -->
+    <string name="activity_movist">Movist</string>
+    <string name="activity_forgot_password">Forgot password</string>
+
+    <!--    ACTIONS    -->
+    <string name="action_login_facebook">Login with Facebook</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_forgot_password">Forgot password</string>
+    <string name="action_reset_password">Reset password</string>
+
+    <!--    FIELDS    -->
+    <string name="field_name">Name</string>
+    <string name="field_email">E-mail</string>
+    <string name="field_password">Password</string>
+    <string name="field_confirm_password">Confirm Password</string>
+
+    <!--    ERRORS    -->
+    <string name="error_pick_photo">Failed to pick a picture.</string>
+    <string name="error_signin">Invalid username or password.</string>
+    <string name="error_required_field">Required field</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_invalid_password">Password must be 6-16 characters</string>
+    <string name="error_invalid_confirm_password">Passwords do not match</string>
+
+    <!--    NAVIGATION DRAWER    -->
+    <string name="drawer_item_home">Map</string>
+    <string name="drawer_item_last_stops">Last stops</string>
+    <string name="drawer_item_my_stops">My stops</string>
+    <string name="drawer_item_settings">Settings</string>
+
+    <!--    FORGOT PASSWORD    -->
+    <string name="forgot_password_label">Enter your email address and we will send you a link to reset your password.</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
