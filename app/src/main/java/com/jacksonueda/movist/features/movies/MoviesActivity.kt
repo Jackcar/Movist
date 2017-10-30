@@ -3,7 +3,7 @@ package com.jacksonueda.movist.features.movies
 import android.os.Bundle
 import com.jacksonueda.movist.base.BaseActivity
 import com.jacksonueda.movist.R
-import com.jacksonueda.movist.utils.Utils
+import com.jacksonueda.movist.utils.replaceFragment
 
 class MoviesActivity : BaseActivity() {
 
@@ -19,7 +19,7 @@ class MoviesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         // Start Signup fragment
-        Utils.replaceFragment(supportFragmentManager, R.id.frame_layout_holder, MoviesFragment())
+        replaceFragment(MoviesFragment(), R.id.frame_layout_holder)
     }
 
 }

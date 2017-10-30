@@ -3,6 +3,7 @@ package com.jacksonueda.movist.di.component
 import com.jacksonueda.movist.di.module.AppModule
 import com.jacksonueda.movist.di.module.DataModule
 import com.jacksonueda.movist.data.remote.AppRemoteDataStore
+import com.jacksonueda.movist.features.movieDetails.MovieDetailsPresenter
 import com.jacksonueda.movist.features.movies.MoviesPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -15,4 +16,5 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(moviesPresenter: MoviesPresenter)
     fun inject(appRemoteDataStore: AppRemoteDataStore)
+    fun inject(movieDetailsPresenter: MovieDetailsPresenter)
 }

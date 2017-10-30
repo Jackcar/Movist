@@ -2,6 +2,7 @@ package com.jacksonueda.movist.features.movies
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import com.jacksonueda.movist.base.BaseMvpFragment
 import com.jacksonueda.movist.R
@@ -10,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 import android.support.v7.widget.LinearLayoutManager
 import com.jacksonueda.movist.features.movieDetails.MovieDetailsActivity
 import com.jacksonueda.movist.model.Movie
+import kotlinx.android.synthetic.main.movie_item.view.*
 import org.jetbrains.anko.support.v4.startActivity
 
 
@@ -48,11 +50,33 @@ class MoviesFragment : BaseMvpFragment<MoviesContract.View, MoviesContract.Prese
                 { page -> mPresenter.getMovies(page) }, linearLayoutManager))
 
         // Set adapter to recycler view
-        mMoviesAdapter = MoviesAdapter(ArrayList(0)) { movie ->
+        mMoviesAdapter = MoviesAdapter(ArrayList(0)) { view, movie ->
             // Execute onClick
-            startActivity<MovieDetailsActivity>(MovieDetailsActivity.EXTRA_MOVIE to movie)
+            onMovieClick(view, movie)
         }
         moviesRecyclerView.adapter = mMoviesAdapter
+    }
+
+    // ==========================================================================================
+    // ACTIONS
+    // ==========================================================================================
+
+    private fun onMovieClick(view: View, movie: Movie) {
+//        val fragment = MovieDetailsFragment()
+//        val bundle = Bundle()
+//        bundle.putSerializable(MovieDetailsFragment.EXTRA_MOVIE, movie)
+//        fragment.arguments = bundle
+//
+//        activity.supportFragmentManager
+//                .beginTransaction()
+//                .addSharedElement(view.moviePoster, "moviePoster")
+//                .replace(R.id.frame_layout_holder, fragment)
+//                .addToBackStack(null)
+//                .commit()
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view.moviePoster, "moviePoster")
+        val intent = Intent(activity, MovieDetailsActivity::class.java)
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE, movie)
+        startActivity(intent, options.toBundle())
     }
 
     // ==========================================================================================

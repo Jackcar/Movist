@@ -1,5 +1,6 @@
 package com.jacksonueda.movist.features.movies
 
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,10 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
     private lateinit var mMovies: MutableList<Movie>
 
-    private var mListener: (Movie) -> Unit
 
-    constructor(movies: List<Movie>, listener: (Movie) -> Unit) {
+    private var mListener: (View, Movie) -> Unit
+
+    constructor(movies: List<Movie>, listener: (View, Movie) -> Unit) {
         mListener = listener
         set(movies)
     }
@@ -48,12 +50,19 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: Movie, listener: (Movie) -> Unit) = with(itemView) {
+        fun bind(movie: Movie, listener: (View, Movie) -> Unit) = with(itemView) {
             val backgroundUrl = movie.backdropPath ?: movie.posterPath
+
+            moviePoster.transitionName = movie.title
+            ViewCompat.setTransitionName(moviePoster, movie.title)
+
             movieTitle.text = movie.title + " (" + Utils.getYear(movie.releaseDate) + ")"
+            movieRate.text = movie.voteAverage.toString()
+
             Utils.loadImage(context.getString(R.string.tmdb_background_url) + backgroundUrl,
                     this.context, moviePoster)
-            setOnClickListener { listener(movie) }
+
+            setOnClickListener { listener(itemView, movie) }
         }
     }
 

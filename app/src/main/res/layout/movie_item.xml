@@ -3,33 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="@dimen/movie_item_height">
 
     <ImageView
         android:id="@+id/moviePoster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:transitionName="moviePoster" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_background" />
+        android:layout_height="@dimen/movie_item_shadow_height"
+        android:background="@drawable/gradient_background"
+        app:layout_constraintBottom_toBottomOf="@+id/moviePoster" />
 
     <TextView
         android:id="@+id/movieTitle"
         style="@style/BoldFont"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:padding="@dimen/movie_item_text_padding"
         android:text="Jackson Ueda"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:textSize="23sp"
+        android:textSize="@dimen/text_size_xlarge"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
+        app:layout_constraintStart_toStartOf="@+id/moviePoster"
         tools:text="Transformers" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="@dimen/movie_item_rating"
+        android:layout_height="@dimen/movie_item_rating"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/circle_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/moviePoster">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/movieRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:shadowColor="@android:color/white"
+                android:shadowRadius="10.0"
+                android:textColor="@android:color/white"
+                tools:text="7.5"
+                android:textSize="@dimen/text_size_large" />
+
+            <ImageView
+                android:layout_width="@dimen/movie_item_star_rating"
+                android:layout_height="@dimen/movie_item_star_rating"
+                android:layout_marginLeft="3dp"
+                android:layout_gravity="center"
+                android:tint="@android:color/white"
+                android:src="@drawable/ic_star" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

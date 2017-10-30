@@ -17,29 +17,24 @@ class Utils {
     companion object {
 
         @JvmStatic
-        fun replaceFragment(supportFragmentManager: FragmentManager, holderView: Int, fragment: Fragment) {
-            supportFragmentManager.beginTransaction()
-                    .replace(holderView, fragment)
-                    .commit()
-        }
-
-        @JvmStatic
         fun getTimeNow(): String {
             return Date().time.toString()
         }
 
         @JvmStatic
         fun getYear(date: String): String {
-            return date.split("-")[0];
+            return date.split("-")[0]
         }
 
         @JvmStatic
-        fun loadImage(url: String, context: Context, imageView: ImageView) {
-            val options = RequestOptions().centerCrop()
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(imageView)
+        fun loadImage(url: String?, context: Context, imageView: ImageView) {
+            url.let {
+                val options = RequestOptions().centerCrop()
+                Glide.with(context)
+                        .load(url)
+                        .apply(options)
+                        .into(imageView)
+            }
         }
 
     }
