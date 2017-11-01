@@ -3,6 +3,12 @@
 
     <string name="tmdb_background_url">https://image.tmdb.org/t/p/w1400_and_h450_bestv2</string>
     <string name="tmdb_poster_url">https://image.tmdb.org/t/p/w600_and_h900_bestv2</string>
+    <string name="tmdb_cover_url">https://image.tmdb.org/t/p/w1280</string>
+
+    <!--    TRANSACTION NAMES    -->
+    <string name="transition_movie_poster">moviePoster</string>
+    <string name="transition_movie_mask">movieMask</string>
+    <string name="transition_movie_title">movieTitle</string>
 
     <!--    ACTIVITIES    -->
     <string name="activity_movist">Movist</string>

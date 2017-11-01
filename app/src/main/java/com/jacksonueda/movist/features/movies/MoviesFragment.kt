@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jacksonueda.movist.features.movieDetails.MovieDetailsActivity
 import com.jacksonueda.movist.model.Movie
 import kotlinx.android.synthetic.main.movie_item.view.*
-import org.jetbrains.anko.support.v4.startActivity
 
 
 /**
@@ -63,10 +62,11 @@ class MoviesFragment : BaseMvpFragment<MoviesContract.View, MoviesContract.Prese
     // ==========================================================================================
 
     private fun onMovieClick(view: View, movie: Movie) {
-        val p1 = Pair.create(view.moviePoster as View, "moviePoster")
-        val p2 = Pair.create(view.movieTitle as View, "movieTitle")
+        val p1 = Pair.create(view.moviePoster as View, activity.getString(R.string.transition_movie_poster))
+        val p2 = Pair.create(view.movieTitle as View, activity.getString(R.string.transition_movie_title))
+        val p3 = Pair.create(view.movieMask as View, activity.getString(R.string.transition_movie_mask))
         val options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(activity, p1, p2)
+                .makeSceneTransitionAnimation(activity, p1, p2, p3)
         val intent = Intent(activity, MovieDetailsActivity::class.java)
         intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE, movie)
         startActivity(intent, options.toBundle())

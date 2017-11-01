@@ -1,17 +1,15 @@
 package com.jacksonueda.movist.features.movieDetails
 
-import android.graphics.Color
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.jacksonueda.movist.R
 import com.jacksonueda.movist.base.BaseMvpActivity
 import com.jacksonueda.movist.model.Movie
 import com.jacksonueda.movist.utils.Utils
-import jp.wasabeef.glide.transformations.MaskTransformation
 import kotlinx.android.synthetic.main.activity_movie_details.*
 
 class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDetailsContract.Presenter>(), MovieDetailsContract.View {
@@ -35,7 +33,7 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
 
         val movie: Movie? = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
 
-        setupToolBar()
+        setupToolBar(movie?.title)
         loadMovieDetails(movie)
     }
 
@@ -43,9 +41,13 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
     // SETUP
     // ==========================================================================================
 
-    private fun setupToolBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+    private fun setupToolBar(title: String?) {
+        val typeFace = Typeface.createFromAsset(assets, "fonts/Montserrat-Bold.ttf")
+        collapsingToolBar.setCollapsedTitleTypeface(typeFace)
+        collapsingToolBar.setExpandedTitleTypeface(typeFace)
+        title?.let {
+            supportActionBar?.title = title.toUpperCase()
+        }
     }
 
     // ==========================================================================================
@@ -56,31 +58,31 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
         movie.let {
             val coverUrl = movie?.backdropPath ?: movie?.posterPath
 
-            movieTitle.text = movie?.title
-            movieYear.text = Utils.getYear(movie?.releaseDate!!)
-            movieRate.text = movie?.voteAverage.toString()
+            setupToolBar(movie?.title)
+//            movieTitle.text = movie?.title
+//            movieYear.text = Utils.getYear(movie?.releaseDate!!)
+//            movieRate.text = movie?.voteAverage.toString()
             movieOverview.text = movie?.overview
 
 
             val options = RequestOptions().centerCrop()
-//                    .transform(MaskTransformation(R.drawable.gradient_background))
-
 
             Glide.with(this)
-                    .load(getString(R.string.tmdb_background_url) + coverUrl)
+                    .load(getString(R.string.tmdb_cover_url) + coverUrl)
                     .listener(
                             GlidePalette.with(getString(R.string.tmdb_background_url) + coverUrl)
-//                                    .use(BitmapPalette.Profile.VIBRANT)
                                     .intoCallBack { palette ->
-                                        if (palette?.vibrantSwatch?.rgb != null)
-                                            viewMask.setColorFilter(palette?.vibrantSwatch?.rgb!!, android.graphics.PorterDuff.Mode.SRC_IN)
+                                        if (palette?.darkVibrantSwatch?.rgb != null) {
+                                            nestedScrollView.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
+                                            viewMask.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
+                                        }
                                     }
                     )
                     .apply(options)
                     .into(movieCover)
 
 //            Utils.loadImage(getString(R.string.tmdb_background_url) + coverUrl, this, movieCover)
-            Utils.loadImage(getString(R.string.tmdb_poster_url) + movie?.posterPath, this, moviePoster)
+//            Utils.loadImage(getString(R.string.tmdb_poster_url) + movie?.posterPath, this, moviePoster)
         }
 
     }

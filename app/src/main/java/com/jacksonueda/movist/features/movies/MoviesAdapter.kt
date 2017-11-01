@@ -1,10 +1,14 @@
 package com.jacksonueda.movist.features.movies
 
+import android.content.res.ColorStateList
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.github.florent37.glidepalette.GlidePalette
 import com.jacksonueda.movist.R
 import com.jacksonueda.movist.model.Movie
 import com.jacksonueda.movist.utils.Utils
@@ -50,16 +54,29 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie, listener: (View, Movie) -> Unit) = with(itemView) {
-            val backgroundUrl = movie.backdropPath ?: movie.posterPath
+            val coverUrl = movie.backdropPath ?: movie.posterPath
 
-            ViewCompat.setTransitionName(moviePoster, movie.title + "_image")
             ViewCompat.setTransitionName(movieTitle, movie.title)
+            ViewCompat.setTransitionName(movieMask, movie.title + "_mask")
+            ViewCompat.setTransitionName(moviePoster, movie.title + "_image")
 
             movieTitle.text = movie.title + " (" + Utils.getYear(movie.releaseDate) + ")"
             movieRate.text = movie.voteAverage.toString()
 
-            Utils.loadImage(context.getString(R.string.tmdb_background_url) + backgroundUrl,
-                    this.context, moviePoster)
+            Glide.with(this)
+                    .load(context.getString(R.string.tmdb_cover_url) + coverUrl)
+                    .listener(
+                            GlidePalette.with(context.getString(R.string.tmdb_background_url) + coverUrl)
+                                    .intoCallBack { palette ->
+                                        if (palette?.darkVibrantSwatch?.rgb != null)
+                                            movieMask.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
+                                    }
+                    )
+                    .apply(RequestOptions().centerCrop())
+                    .into(moviePoster)
+
+//            Utils.loadImage(context.getString(R.string.tmdb_cover_url) + coverUrl,
+//                    this.context, moviePoster)
 
             setOnClickListener { listener(itemView, movie) }
         }
