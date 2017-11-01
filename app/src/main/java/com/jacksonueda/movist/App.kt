@@ -5,7 +5,6 @@ import com.jacksonueda.movist.di.component.AppComponent
 import com.jacksonueda.movist.di.component.DaggerAppComponent
 import com.jacksonueda.movist.di.module.AppModule
 import com.jacksonueda.movist.di.module.DataModule
-import com.orhanobut.hawk.Hawk
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
@@ -24,7 +23,6 @@ class App : Application() {
         super.onCreate()
 
         setupDagger()
-        setupSharedPreferences()
         setupFonts()
     }
 
@@ -37,10 +35,6 @@ class App : Application() {
                 .appModule(AppModule(this))
                 .dataModule(DataModule())
                 .build()
-    }
-
-    private fun setupSharedPreferences() {
-        Hawk.init(baseContext).build()
     }
 
     private fun setupFonts() {

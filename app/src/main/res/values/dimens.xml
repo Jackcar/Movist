@@ -16,10 +16,16 @@
     <dimen name="movie_item_star_rating">15dp</dimen>
 
     <!-- Movie Details -->
-    <dimen name="movie_details_poster_height">200dp</dimen>
+    <dimen name="movie_details_cover_height">200dp</dimen>
     <dimen name="movie_details_ic_play">40dp</dimen>
+    <dimen name="movie_details_title_padding">10dp</dimen>
+    <dimen name="movie_details_text_padding">5dp</dimen>
     <dimen name="movie_details_poster_top_margin">-16dp</dimen>
     <dimen name="movie_details_poster_left_margin">16dp</dimen>
+
+    <dimen name="movie_details_poster_margin">180dp</dimen>
+    <dimen name="movie_details_poster_width">100dp</dimen>
+    <dimen name="movie_details_poster_height">150dp</dimen>
 
     <dimen name="movie_details_responsive_width">@dimen/match_parent</dimen>
     <dimen name="movie_details_anchor_height">@dimen/match_parent</dimen>

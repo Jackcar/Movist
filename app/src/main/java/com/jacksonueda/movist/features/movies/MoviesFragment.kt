@@ -3,6 +3,7 @@ package com.jacksonueda.movist.features.movies
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.view.View
 import com.jacksonueda.movist.base.BaseMvpFragment
 import com.jacksonueda.movist.R
@@ -16,7 +17,7 @@ import org.jetbrains.anko.support.v4.startActivity
 
 
 /**
- * Created by Jackson on 13/07/17.
+ * Created by Jackson on 28/10/17.
  */
 class MoviesFragment : BaseMvpFragment<MoviesContract.View, MoviesContract.Presenter>(), MoviesContract.View {
 
@@ -62,18 +63,10 @@ class MoviesFragment : BaseMvpFragment<MoviesContract.View, MoviesContract.Prese
     // ==========================================================================================
 
     private fun onMovieClick(view: View, movie: Movie) {
-//        val fragment = MovieDetailsFragment()
-//        val bundle = Bundle()
-//        bundle.putSerializable(MovieDetailsFragment.EXTRA_MOVIE, movie)
-//        fragment.arguments = bundle
-//
-//        activity.supportFragmentManager
-//                .beginTransaction()
-//                .addSharedElement(view.moviePoster, "moviePoster")
-//                .replace(R.id.frame_layout_holder, fragment)
-//                .addToBackStack(null)
-//                .commit()
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view.moviePoster, "moviePoster")
+        val p1 = Pair.create(view.moviePoster as View, "moviePoster")
+        val p2 = Pair.create(view.movieTitle as View, "movieTitle")
+        val options = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(activity, p1, p2)
         val intent = Intent(activity, MovieDetailsActivity::class.java)
         intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE, movie)
         startActivity(intent, options.toBundle())
@@ -83,7 +76,13 @@ class MoviesFragment : BaseMvpFragment<MoviesContract.View, MoviesContract.Prese
     // VIEW
     // ==========================================================================================
 
+    override fun emptyList() {
+        if (mMoviesAdapter.itemCount == 0)
+            emptyList.visibility = View.VISIBLE
+    }
+
     override fun displayMovies(movies: List<Movie>) {
+        emptyList.visibility = View.GONE
         mMoviesAdapter.add(movies)
     }
 

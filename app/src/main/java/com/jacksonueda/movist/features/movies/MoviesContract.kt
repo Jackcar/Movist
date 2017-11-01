@@ -5,7 +5,7 @@ import com.jacksonueda.movist.base.BaseMvpViewFragment
 import com.jacksonueda.movist.model.Movie
 
 /**
- * Created by Jackson on 13/07/17.
+ * Created by Jackson on 28/10/17.
  */
 
 object MoviesContract {
@@ -14,6 +14,7 @@ object MoviesContract {
         fun showLoading()
         fun dismissLoading()
         fun displayMovies(movies: List<Movie>)
+        fun emptyList()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.annotation.StringRes
 
 /**
- * Created by Jackson on 13/07/17.
+ * Created by Jackson on 28/10/17.
  */
 interface BaseMvpView {
 

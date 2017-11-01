@@ -11,12 +11,11 @@ import com.jacksonueda.movist.utils.Utils
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 /**
- * Created by Jackson on 29/09/17.
+ * Created by Jackson on 28/10/17.
  */
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
     private lateinit var mMovies: MutableList<Movie>
-
 
     private var mListener: (View, Movie) -> Unit
 
@@ -53,8 +52,8 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
         fun bind(movie: Movie, listener: (View, Movie) -> Unit) = with(itemView) {
             val backgroundUrl = movie.backdropPath ?: movie.posterPath
 
-            moviePoster.transitionName = movie.title
-            ViewCompat.setTransitionName(moviePoster, movie.title)
+            ViewCompat.setTransitionName(moviePoster, movie.title + "_image")
+            ViewCompat.setTransitionName(movieTitle, movie.title)
 
             movieTitle.text = movie.title + " (" + Utils.getYear(movie.releaseDate) + ")"
             movieRate.text = movie.voteAverage.toString()

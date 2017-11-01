@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Created by Jackson on 13/07/17.
+ * Created by Jackson on 28/10/17.
  */
 
 class MovieDetailsPresenter : BaseMvpPresenterImpl<MovieDetailsContract.View>(), MovieDetailsContract.Presenter {

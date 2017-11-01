@@ -45,7 +45,7 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>>
     // ==========================================================================================
 
     override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
-        android.R.id.home -> consume { finish() }
+        android.R.id.home -> consume { supportFinishAfterTransition() }
         else -> super.onOptionsItemSelected(item)
     }
 

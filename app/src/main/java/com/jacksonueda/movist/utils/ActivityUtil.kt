@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 
 /**
- * Created by jackson.junior.ext on 10/30/17.
+ * Created by jackson.junior.ext on 30/10/17.
  */
 
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {

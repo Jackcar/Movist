@@ -1,17 +1,13 @@
 package com.jacksonueda.movist.utils
 
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.github.florent37.glidepalette.BitmapPalette
-import com.github.florent37.glidepalette.GlidePalette
 import java.util.*
 
 /**
- * Created by Jackson on 17/08/17.
+ * Created by Jackson on 28/10/17.
  */
 class Utils {
     companion object {

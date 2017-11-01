@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 
 /**
- * Created by Jackson on 13/07/17.
+ * Created by Jackson on 28/10/17.
  */
 
 class MoviesPresenter : BaseMvpPresenterImpl<MoviesContract.View>(), MoviesContract.Presenter {
@@ -36,7 +36,7 @@ class MoviesPresenter : BaseMvpPresenterImpl<MoviesContract.View>(), MoviesContr
                             mView?.displayMovies(movies)
                         },
                         {
-                            mView?.showMessage("Deu erro")
+                            mView?.emptyList()
                         }
                 )
     }
