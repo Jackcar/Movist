@@ -5,6 +5,11 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import java.util.*
+import android.content.Intent
+import android.net.Uri
+import android.support.v4.content.ContextCompat.startActivity
+
+
 
 /**
  * Created by Jackson on 28/10/17.
@@ -32,6 +37,5 @@ class Utils {
                         .into(imageView)
             }
         }
-
     }
 }

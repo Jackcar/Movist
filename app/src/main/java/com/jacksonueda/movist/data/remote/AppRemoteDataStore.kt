@@ -4,7 +4,7 @@ import com.jacksonueda.movist.App
 import com.jacksonueda.movist.data.AppDataStore
 import com.jacksonueda.movist.data.Local.AppLocalDataStore
 import com.jacksonueda.movist.model.Movie
-import com.jacksonueda.movist.model.Sort
+import com.jacksonueda.movist.model.Video
 import io.reactivex.Observable
 import javax.inject.Inject
 import retrofit2.Retrofit
@@ -33,11 +33,18 @@ class AppRemoteDataStore : AppDataStore {
                 }
     }
 
-    override fun movie(movieId: Long): Observable<Movie> {
+    override fun movie(movieId: Int): Observable<Movie> {
         return retrofit.create(RestApi::class.java).movie(movieId)
+                .retry(2)
                 .doOnNext { movie ->
                     appLocalDataStore.saveMovie(movie)
                 }
+    }
+
+    fun videos(movieId: Int): Observable<List<Video>> {
+        return retrofit.create(RestApi::class.java).videos(movieId)
+                .retry(2)
+                .map { response -> response.results }
     }
 
 //    fun signUpWithEmail(name: String, email: String, password: String, imageUri: Uri?, gender: String):

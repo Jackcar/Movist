@@ -19,9 +19,9 @@ interface RestApi {
                        @Query("page") page: Int): Observable<Movie.Response>
 
     @GET("movie/{id}")
-    fun movie(@Path("id") movieId: Long): Observable<Movie>
+    fun movie(@Path("id") movieId: Int): Observable<Movie>
 
     @GET("movie/{id}/videos")
-    fun videos(@Path("id") movieId: Long): Observable<Video.Response>
+    fun videos(@Path("id") movieId: Int): Observable<Video.Response>
 
 }

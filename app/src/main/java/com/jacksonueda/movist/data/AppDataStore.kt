@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface AppDataStore {
     fun movies(page: Int): Observable<List<Movie>>
-    fun movie(movieId: Long): Observable<Movie>
+    fun movie(movieId: Int): Observable<Movie>
 }

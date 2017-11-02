@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movist</string>
 
+    <string name="youtube_base_url">http://www.youtube.com/watch?v=</string>
     <string name="tmdb_background_url">https://image.tmdb.org/t/p/w1400_and_h450_bestv2</string>
     <string name="tmdb_poster_url">https://image.tmdb.org/t/p/w600_and_h900_bestv2</string>
     <string name="tmdb_cover_url">https://image.tmdb.org/t/p/w1280</string>

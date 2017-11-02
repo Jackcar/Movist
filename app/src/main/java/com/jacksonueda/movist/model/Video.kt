@@ -1,6 +1,7 @@
 package com.jacksonueda.movist.model
 
 import com.google.gson.annotations.SerializedName
+
 //import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteColumn
 //import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteCreator
 //import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteType
@@ -13,7 +14,7 @@ class Video
 //@StorIOSQLiteCreator
 constructor(
         @SerializedName("id")
-        val id: Int,
+        val id: String,
 
         @SerializedName("key")
         val key: String,
@@ -34,4 +35,8 @@ constructor(
             @SerializedName("results")
             val results: ArrayList<Video>
     )
+
+    fun isFromYoutube(): Boolean {
+        return site == "YouTube"
+    }
 }

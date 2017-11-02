@@ -1,7 +1,10 @@
 package com.jacksonueda.movist.model
 
+import android.icu.text.DateFormat
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
 
 //import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteColumn
 //import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteCreator
@@ -14,8 +17,8 @@ import java.io.Serializable
 class Movie
 //@StorIOSQLiteCreator
 constructor(
-        @SerializedName("vote_count")
 //        @StorIOSQLiteColumn(name = "voteCount")
+        @SerializedName("vote_count")
         val voteCount: Int,
 
         @SerializedName("id")
@@ -43,7 +46,13 @@ constructor(
         val overview: String,
 
         @SerializedName("release_date")
-        val releaseDate: String
+        val releaseDate: String,
+
+        @SerializedName("status")
+        val status: String,
+
+        @SerializedName("genres")
+        val genres: List<Genre>
 ) : Serializable {
     class Response(
             @SerializedName("page")
@@ -58,4 +67,16 @@ constructor(
             @SerializedName("results")
             val results: List<Movie>
     )
+
+    fun formattedDate(): String {
+        var formatter = SimpleDateFormat("yyyy-MM-dd")
+        val date = formatter.parse(releaseDate)
+
+        formatter = SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH)
+        return formatter.format(date)
+    }
+
+    fun genreListAsString(): String {
+        return genres.joinToString(" / ", transform = { genre -> genre.name })
+    }
 }

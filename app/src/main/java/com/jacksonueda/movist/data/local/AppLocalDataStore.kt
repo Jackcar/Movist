@@ -2,6 +2,7 @@ package com.jacksonueda.movist.data.Local
 
 import android.app.Application
 import com.jacksonueda.movist.data.AppDataStore
+import com.jacksonueda.movist.model.Genre
 import com.jacksonueda.movist.model.Movie
 import io.reactivex.Observable
 
@@ -10,9 +11,9 @@ import io.reactivex.Observable
  */
 class AppLocalDataStore(context: Application) : AppDataStore {
 
-    override fun movie(movieId: Long): Observable<Movie> {
+    override fun movie(movieId: Int): Observable<Movie> {
         return Observable.just(
-                Movie(0,0 , false, 0.0f, "", 0.0, "", "","", "")
+                Movie(0,0 , false, 0.0f, "", 0.0, "", "","", "", "", listOf())
         )
     }
 

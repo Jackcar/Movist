@@ -3,14 +3,18 @@ package com.jacksonueda.movist.features.movieDetails
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.glidepalette.GlidePalette
 import com.jacksonueda.movist.R
 import com.jacksonueda.movist.base.BaseMvpActivity
+import com.jacksonueda.movist.model.Genre
 import com.jacksonueda.movist.model.Movie
-import com.jacksonueda.movist.utils.Utils
+import com.jacksonueda.movist.model.Video
 import kotlinx.android.synthetic.main.activity_movie_details.*
+import org.jetbrains.anko.browse
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDetailsContract.Presenter>(), MovieDetailsContract.View {
 
@@ -31,59 +35,28 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val movie: Movie? = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
+        val movie: Movie = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
 
-        setupToolBar(movie?.title)
-        loadMovieDetails(movie)
+        mPresenter.getMovie(movie.id)
+        mPresenter.getVideos(movie.id)
     }
 
     // ==========================================================================================
     // SETUP
     // ==========================================================================================
 
-    private fun setupToolBar(title: String?) {
+    private fun setupCollapsingToolBar(title: String) {
         val typeFace = Typeface.createFromAsset(assets, "fonts/Montserrat-Bold.ttf")
         collapsingToolBar.setCollapsedTitleTypeface(typeFace)
         collapsingToolBar.setExpandedTitleTypeface(typeFace)
-        title?.let {
-            supportActionBar?.title = title.toUpperCase()
-        }
+        collapsingToolBar.title = title.toUpperCase()
     }
 
     // ==========================================================================================
     // HELPER
     // ==========================================================================================
 
-    fun loadMovieDetails(movie: Movie?) {
-        movie.let {
-            val coverUrl = movie?.backdropPath ?: movie?.posterPath
-
-            setupToolBar(movie?.title)
-//            movieTitle.text = movie?.title
-//            movieYear.text = Utils.getYear(movie?.releaseDate!!)
-//            movieRate.text = movie?.voteAverage.toString()
-            movieOverview.text = movie?.overview
-
-
-            val options = RequestOptions().centerCrop()
-
-            Glide.with(this)
-                    .load(getString(R.string.tmdb_cover_url) + coverUrl)
-                    .listener(
-                            GlidePalette.with(getString(R.string.tmdb_background_url) + coverUrl)
-                                    .intoCallBack { palette ->
-                                        if (palette?.darkVibrantSwatch?.rgb != null) {
-                                            nestedScrollView.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
-                                            viewMask.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
-                                        }
-                                    }
-                    )
-                    .apply(options)
-                    .into(movieCover)
-
-//            Utils.loadImage(getString(R.string.tmdb_background_url) + coverUrl, this, movieCover)
-//            Utils.loadImage(getString(R.string.tmdb_poster_url) + movie?.posterPath, this, moviePoster)
-        }
+    private fun displayGenres(genres: List<Genre>) {
 
     }
 
@@ -92,15 +65,51 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
     // ==========================================================================================
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        movieProgressBar.visibility = View.VISIBLE
     }
 
     override fun dismissLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        movieProgressBar.visibility = View.GONE
     }
 
     override fun displayMovieDetails(movie: Movie) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val coverUrl = movie.backdropPath ?: movie.posterPath
+
+        setupCollapsingToolBar(movie.title)
+
+        movieStatus.text = movie.status
+        movieTitle.text = movie.title
+        movieReleaseDate.text = movie.formattedDate()
+        movieOverview.text = movie.overview
+        movieGenres.text = movie.genreListAsString()
+//            movieRate.text = movie?.voteAverage.toString()
+
+        // Cover image
+        Glide.with(this)
+                .load(getString(R.string.tmdb_cover_url) + coverUrl)
+                .listener(
+                        GlidePalette.with(getString(R.string.tmdb_background_url) + coverUrl)
+                                .intoCallBack { palette ->
+                                    if (palette?.darkVibrantSwatch?.rgb != null) {
+                                        coordinatorLayout.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
+                                        viewMask.backgroundTintList = ColorStateList.valueOf(palette?.darkVibrantSwatch?.rgb!!)
+                                    }
+                                }
+                )
+                .apply(RequestOptions().centerCrop())
+                .into(movieCover)
     }
 
+    override fun loadVideos(videos: List<Video>) {
+        val lastVideo = videos[videos.lastIndex]
+
+        if (lastVideo.isFromYoutube()) {
+            // Show play button
+            playVideoButton.visibility = View.VISIBLE
+
+            playVideoButton.onClick {
+                browse(getString(R.string.youtube_base_url) + lastVideo.key)
+            }
+        }
+    }
 }

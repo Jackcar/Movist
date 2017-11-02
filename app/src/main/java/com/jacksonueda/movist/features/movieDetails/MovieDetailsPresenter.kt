@@ -20,7 +20,7 @@ class MovieDetailsPresenter : BaseMvpPresenterImpl<MovieDetailsContract.View>(),
         App.appComponent().inject(this)
     }
 
-    override fun getMovie(movieId: Long) {
+    override fun getMovie(movieId: Int) {
         mRepository.movie(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -33,6 +33,21 @@ class MovieDetailsPresenter : BaseMvpPresenterImpl<MovieDetailsContract.View>(),
                 .subscribe(
                         { movie ->
                             mView?.displayMovieDetails(movie)
+                        },
+                        {
+                            mView?.showMessage("Deu erro")
+                        }
+                )
+    }
+
+    override fun getVideos(movieId: Int) {
+        mRepository.videos(movieId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .filter { videos -> !videos.isEmpty() }
+                .subscribe(
+                        { videos ->
+                            mView?.loadVideos(videos)
                         },
                         {
                             mView?.showMessage("Deu erro")

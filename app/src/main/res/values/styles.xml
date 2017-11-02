@@ -29,11 +29,8 @@
     </style>
 
     <style name="ExpandedAppBar" parent="@android:style/TextAppearance">
-        <item name="android:textSize">@dimen/text_size_xlarge</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">0sp</item>
     </style>
 
     <style name="LightFont">
