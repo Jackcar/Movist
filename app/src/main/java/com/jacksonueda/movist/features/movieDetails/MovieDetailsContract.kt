@@ -21,6 +21,7 @@ object MovieDetailsContract {
     interface Presenter : BaseMvpPresenter<View> {
         fun getMovie(movieId: Int)
         fun getVideos(movieId: Int)
+        fun saveMovie(movie: Movie)
     }
 
 }

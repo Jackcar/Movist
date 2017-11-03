@@ -18,6 +18,7 @@
 
     <!-- Movie Details -->
     <dimen name="movie_details_cover_height">200dp</dimen>
+    <dimen name="movie_details_favorite_margin">20dp</dimen>
     <dimen name="movie_details_ic_play">40dp</dimen>
     <dimen name="movie_details_padding">10dp</dimen>
     <dimen name="movie_details_title_padding">10dp</dimen>

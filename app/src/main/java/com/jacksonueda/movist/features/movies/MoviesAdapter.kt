@@ -56,13 +56,16 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
         fun bind(movie: Movie, listener: (View, Movie) -> Unit) = with(itemView) {
             val coverUrl = movie.backdropPath ?: movie.posterPath
 
+            // Transition names
             ViewCompat.setTransitionName(movieTitle, movie.title)
             ViewCompat.setTransitionName(movieMask, movie.title + "_mask")
             ViewCompat.setTransitionName(moviePoster, movie.title + "_image")
+            ViewCompat.setTransitionName(movieRate, movie.title + "_rate")
 
             movieTitle.text = movie.title + " (" + Utils.getYear(movie.releaseDate) + ")"
             movieRate.text = movie.voteAverage.toString()
 
+            // Background cover
             Glide.with(this)
                     .load(context.getString(R.string.tmdb_cover_url) + coverUrl)
                     .listener(
@@ -74,9 +77,6 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
                     )
                     .apply(RequestOptions().centerCrop())
                     .into(moviePoster)
-
-//            Utils.loadImage(context.getString(R.string.tmdb_cover_url) + coverUrl,
-//                    this.context, moviePoster)
 
             setOnClickListener { listener(itemView, movie) }
         }

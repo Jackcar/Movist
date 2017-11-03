@@ -26,6 +26,12 @@
         <activity
             android:name=".features.movieDetails.MovieDetailsActivity"
             android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name=".data.local.Provider"
+            android:authorities="com.jacksonueda.movist"
+            android:exported="false"
+            android:syncable="true" />
     </application>
 
 </manifest>

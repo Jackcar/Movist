@@ -6,6 +6,7 @@
     <color name="whiteAlpha">#61ffffff</color>
     <color name="lightGray">#dedede</color>
     <color name="mediumGray">#404040</color>
+    <color name="brightYellow">#c4ab0d</color>
     <color name="darkGray">#2d2d2d</color>
     <color name="drawerSelectedBackground">#49000000</color>
 </resources>

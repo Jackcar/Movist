@@ -10,6 +10,7 @@
     <string name="transition_movie_poster">moviePoster</string>
     <string name="transition_movie_mask">movieMask</string>
     <string name="transition_movie_title">movieTitle</string>
+    <string name="transition_movie_rate">movieRate</string>
 
     <!--    ACTIVITIES    -->
     <string name="activity_movist">Movist</string>

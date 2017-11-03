@@ -1,8 +1,10 @@
 package com.jacksonueda.movist.features.movieDetails
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -14,6 +16,7 @@ import com.jacksonueda.movist.model.Movie
 import com.jacksonueda.movist.model.Video
 import kotlinx.android.synthetic.main.activity_movie_details.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.image
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDetailsContract.Presenter>(), MovieDetailsContract.View {
@@ -32,13 +35,17 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
         return R.layout.activity_movie_details
     }
 
+    private lateinit var mMovie: Movie
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val movie: Movie = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
+        mMovie = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
 
-        mPresenter.getMovie(movie.id)
-        mPresenter.getVideos(movie.id)
+        mPresenter.getMovie(mMovie.id)
+        mPresenter.getVideos(mMovie.id)
+
+        setupListener()
     }
 
     // ==========================================================================================
@@ -56,8 +63,19 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
     // HELPER
     // ==========================================================================================
 
-    private fun displayGenres(genres: List<Genre>) {
+    private fun setupListener() {
+        favoriteButton.onClick {
+            mMovie.favorite = !mMovie.favorite
+            displayFavorite(mMovie)
+            mPresenter.saveMovie(mMovie)
+        }
+    }
 
+    private fun displayFavorite(movie: Movie) {
+        if (movie.favorite)
+            favoriteButton.image = getDrawable(R.drawable.ic_favorite)
+        else
+            favoriteButton.image = getDrawable(R.drawable.ic_favorite_border)
     }
 
     // ==========================================================================================
@@ -82,7 +100,10 @@ class MovieDetailsActivity : BaseMvpActivity<MovieDetailsContract.View, MovieDet
         movieReleaseDate.text = movie.formattedDate()
         movieOverview.text = movie.overview
         movieGenres.text = movie.genreListAsString()
-//            movieRate.text = movie?.voteAverage.toString()
+        movieRate.text = movie.voteAverage.toString()
+        movieRatingBar.rating = (movie.voteAverage / 2)
+
+        displayFavorite(movie)
 
         // Cover image
         Glide.with(this)

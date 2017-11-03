@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -37,7 +37,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.0.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -51,11 +51,10 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.1'
     compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
 
-    // StorIO for SQLite
-//    compile 'com.pushtorefresh.storio2:sqlite-annotations:2.0.0'
-//    kapt 'com.pushtorefresh.storio2:sqlite-annotations-processor:2.0.0'
-//    compile 'com.pushtorefresh.storio2:content-resolver-annotations:2.0.0'
-//    kapt 'com.pushtorefresh.storio2:content-resolver-annotations-processor:2.0.0'
+    // Room Persistence
+    compile "android.arch.persistence.room:runtime:1.0.0-rc1"
+    kapt "android.arch.persistence.room:compiler:1.0.0-rc1"
+    compile "android.arch.persistence.room:rxjava2:1.0.0-rc1"
 
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -79,13 +78,19 @@ dependencies {
     // Hawk
     compile 'com.orhanobut:hawk:2.0.1'
 
-    // Circular ImageView
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-
-    compile 'com.gjiazhe:PanoramaImageView:1.0'
-
     // Material Drawer
     compile('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
     }
 }

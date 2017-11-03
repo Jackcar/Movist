@@ -22,7 +22,7 @@ class MoviesPresenter : BaseMvpPresenterImpl<MoviesContract.View>(), MoviesContr
     }
 
     override fun getMovies(page: Int) {
-        mRepository.movies(page)
+        add(mRepository.movies(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
@@ -35,9 +35,10 @@ class MoviesPresenter : BaseMvpPresenterImpl<MoviesContract.View>(), MoviesContr
                         { movies ->
                             mView?.displayMovies(movies)
                         },
-                        {
+                        { e ->
+                            e.printStackTrace()
                             mView?.emptyList()
                         }
-                )
+                ))
     }
 }

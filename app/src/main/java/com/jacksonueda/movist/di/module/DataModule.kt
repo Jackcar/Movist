@@ -1,8 +1,9 @@
 package com.jacksonueda.movist.di.module
 
 import android.app.Application
+import android.arch.persistence.room.Room
 import com.jacksonueda.movist.BuildConfig
-import com.jacksonueda.movist.data.Local.AppLocalDataStore
+import com.jacksonueda.movist.data.local.AppLocalDataStore
 import com.jacksonueda.movist.data.remote.AppRemoteDataStore
 import dagger.Module
 import dagger.Provides
@@ -22,6 +23,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 class DataModule {
 
     private val apiKey: String = "api_key"
+    private val databaseName = "Movist.db"
 
     @Provides
     @Singleton
@@ -67,7 +69,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providesAppLocalDataStore(context: Application) = AppLocalDataStore(context)
+    fun providesAppLocalDataStore(context: Application) = Room.databaseBuilder(context, AppLocalDataStore::class.java, databaseName)
+            .fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton

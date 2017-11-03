@@ -1,10 +1,11 @@
 package com.jacksonueda.movist.data
 
 import io.reactivex.Observable
-import com.jacksonueda.movist.data.Local.AppLocalDataStore
+import com.jacksonueda.movist.data.local.AppLocalDataStore
 import com.jacksonueda.movist.data.remote.AppRemoteDataStore
 import com.jacksonueda.movist.model.Movie
 import com.jacksonueda.movist.model.Video
+import io.reactivex.rxkotlin.withLatestFrom
 import javax.inject.Inject
 
 
@@ -29,6 +30,10 @@ class AppRepository @Inject constructor(val mAppLocalDataStore: AppLocalDataStor
 
     fun videos(movieId: Int): Observable<List<Video>> {
         return mAppRemoteDataStore.videos(movieId)
+    }
+
+    fun saveMovie(movie: Movie) {
+        mAppLocalDataStore.updateMovie(movie)
     }
 
 }

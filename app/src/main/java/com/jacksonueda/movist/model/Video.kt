@@ -2,17 +2,10 @@ package com.jacksonueda.movist.model
 
 import com.google.gson.annotations.SerializedName
 
-//import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteColumn
-//import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteCreator
-//import com.pushtorefresh.storio2.sqlite.annotations.StorIOSQLiteType
-
 /**
  * Created by Jackson on 28/10/17.
  */
-//@StorIOSQLiteType(table = "video")
-class Video
-//@StorIOSQLiteCreator
-constructor(
+class Video constructor(
         @SerializedName("id")
         val id: String,
 

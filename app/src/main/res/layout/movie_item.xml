@@ -62,6 +62,7 @@
                 android:shadowRadius="10.0"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_large"
+                android:transitionName="@string/transition_movie_rate"
                 tools:text="7.5" />
 
             <ImageView

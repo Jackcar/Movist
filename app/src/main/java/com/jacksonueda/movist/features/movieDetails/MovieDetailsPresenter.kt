@@ -3,6 +3,7 @@ package com.jacksonueda.movist.features.movieDetails
 import com.jacksonueda.movist.App
 import com.jacksonueda.movist.base.BaseMvpPresenterImpl
 import com.jacksonueda.movist.data.AppRepository
+import com.jacksonueda.movist.model.Movie
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class MovieDetailsPresenter : BaseMvpPresenterImpl<MovieDetailsContract.View>(),
     }
 
     override fun getMovie(movieId: Int) {
-        mRepository.movie(movieId)
+        add(mRepository.movie(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
@@ -37,21 +38,19 @@ class MovieDetailsPresenter : BaseMvpPresenterImpl<MovieDetailsContract.View>(),
                         {
                             mView?.showMessage("Deu erro")
                         }
-                )
+                ))
     }
 
     override fun getVideos(movieId: Int) {
-        mRepository.videos(movieId)
+        add(mRepository.videos(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .filter { videos -> !videos.isEmpty() }
-                .subscribe(
-                        { videos ->
-                            mView?.loadVideos(videos)
-                        },
-                        {
-                            mView?.showMessage("Deu erro")
-                        }
-                )
+                .subscribe({ videos -> mView?.loadVideos(videos) }, { })
+        )
+    }
+
+    override fun saveMovie(movie: Movie) {
+        mRepository.saveMovie(movie)
     }
 }
